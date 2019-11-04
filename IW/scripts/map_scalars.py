@@ -6,9 +6,9 @@ from tqdm import tqdm
 #Maps a new columns onto a set of dataframes
 def map_scalars(path,out_col,fn):
    files = os.listdir(path)
-   for f in tqdm(files,ascii=True,
-                 total=len(files),
-                 leave=True,desc="Mapping Scalars"):
+   fs = tqdm(files,ascii=True, total=len(files), leave=True,desc="Mapping Scalars")
+   fs = [x for x in fs if x[-4:] == '.fthr']
+   for f in fs:
         fpath = os.path.join(path,f)
         df = feather.read_dataframe(fpath)
         if 'd' in df.columns:
